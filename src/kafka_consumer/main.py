@@ -29,6 +29,7 @@ def main(args=[]):
 
     with create_writer() as write:
         print('Consumer reading...')
+        counter = 0
         for message in consumer:
             assert message.timestamp, ERROR_NO_TIMESTAMP
 
@@ -49,7 +50,8 @@ def main(args=[]):
                 Timestamp.CONSUMED.value: ts_consumed,
             })
 
-            print('.', end='')
+            counter += 1
+            print(f"Received: {counter}", end='\r', flush=True)
 
 
 if __name__ == "__main__":
